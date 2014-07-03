@@ -1,0 +1,75 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-ajax/core-ajax.html">
+
+<!--
+Element providing solution to no problem in particular.
+
+##### Example
+
+    <okta-app-list></okta-app-list>
+
+@element okta-app-list
+@blurb Element providing solution to no problem in particular.
+@status alpha
+@homepage http://shawndrape.github.io/okta-app-list
+-->
+<polymer-element name="okta-app-list" attributes="org">
+
+  <template>
+
+    <link rel="stylesheet" href="okta-app-list.css" />
+    <core-ajax auto withCredentials url='https://{{org}}/api/v1/users/me/appLinks'
+      handleAs='json'
+      on-core-response="{{handleResponse}}"></core-ajax>
+      <template id="core" repeat="{{apps}}">
+        <div>{{label}}</div>
+      </template>
+
+  </template>
+
+  <script>
+
+    Polymer('okta-app-list', {
+      /**
+       * The `noevent` event is not actually fired from here,
+       * we document it as an example of documenting events.
+       *
+       * @event noevent
+       */
+
+      /**
+       * The `org` attribute does not yet have a purpose.
+       *
+       * @attribute org
+       * @type string
+       */
+      org: '',
+
+      /**
+       * The `aProp` is a property that does something cool.
+       *
+       * @property aProp
+       * @type bool
+       */
+      aProp: false,
+
+      ready: function() {
+      },
+
+      /**
+       * The `task` method does no work at this time.
+       *
+       * @method task
+       * @return {Object} Returns undefined.
+       * @param {String} dummy Serves no purpose today.
+       */
+      handleResponse: function(resp) {
+        console.log("I'm hit!");
+        this.$.core.model = {apps: resp.detail.response};
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
