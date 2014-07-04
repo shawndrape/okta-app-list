@@ -6,13 +6,23 @@
 
   <script src="../platform/platform.js"></script>
   <link rel="import" href="okta-app-list.html">
-
+  <style>
+  	okta-app-list{
+  		max-width: 700px;
+  	}
+  </style>
 </head>
 <body unresolved>
-
-  <p>An `okta-app-list` looks like this:</p>
-
-  <okta-app-list org='deltahotels.oktapreview.com'></okta-app-list>
+  <script>
+  	function changeOrg(e){
+  		var list = document.querySelector('okta-app-list');
+  		var val = orgVal.value;
+  		list.setAttribute('org', val);
+  	}
+  </script>
+  <p>An `okta-app-list` looks like this (update the org to see it in action):</p>
+  <input type="text" id="orgVal"></input><button onClick="changeOrg()">Update Org</button>
+  <okta-app-list></okta-app-list>
 
 </body>
 </html>
