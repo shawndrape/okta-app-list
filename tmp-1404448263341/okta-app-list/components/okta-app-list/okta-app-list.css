@@ -1,0 +1,64 @@
+:host {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:host ul {
+	list-style: none;
+	display: block;
+}
+
+:host li{
+	margin: 0 0 32px 41px;
+	display: block;
+	float: left;
+	height: 90px;
+	width: 146px;
+}
+
+:host a {
+	position: relative;
+	border-radius: 3px;
+	color: #333 !important;
+	display: block;
+height: 64px;
+padding: 1px 0;
+border: 1px solid;
+text-align: center;
+background: linear-gradient(#fbfbfb,#f8f8f8),#fbfbfb;
+border-color: #c3c3c3;
+border-bottom-color: #bbb;
+box-shadow: rgba(0,0,0,0.05) 0 1px 0,rgba(255,255,255,0.1) 0 1px 0 0 inset;
+}
+
+:host img {
+	position: absolute;
+margin: auto;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+max-width: 104px;
+max-height: 37px;
+padding: 0;
+border: 0;
+outline: 0;
+font-size: 100%;
+font: inherit;
+vertical-align: baseline;
+background: transparent;
+}
+
+:host span{
+	margin: 7px auto 0 auto;
+	display: block;
+width: 144px;
+font-size: 12px;
+line-height: 14px;
+color: #999;
+text-align: center;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+padding-bottom: 0.0625em;
+}

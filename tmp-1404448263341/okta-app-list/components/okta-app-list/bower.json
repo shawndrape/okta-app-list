@@ -1,0 +1,10 @@
+{
+  "name": "okta-app-list",
+  "version": "0.1.0",
+  "keywords": "seed, polymer, web-components, okta",
+  "main": "okta-app-list.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.3.1",
+    "core-ajax": "Polymer/core-ajax#~0.3.3"
+  }
+}
