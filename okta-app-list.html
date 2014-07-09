@@ -13,17 +13,18 @@ Element providing a list of applications assigned to a logged in user
 @status alpha
 @homepage http://shawndrape.github.io/okta-app-list
 -->
-<polymer-element name="okta-app-list" attributes="org filter">
-
+<polymer-element name="okta-app-list" attributes="org filter searchable">
   <template>
-
     <link rel="stylesheet" href="okta-app-list.css" />
-    <!-- <input value="{{ filter }}"></input> -->
       <core-ajax auto withCredentials url="{{ org && 'https://' + org + '/api/v1/users/me/appLinks' }}"
         handleAs='json'
         on-core-response="{{handleResponse}}"></core-ajax>
+    <template if="{{ org !== ''}}">
+      <template if="{{searchable}}">
+        <input type="search" placeholder="Type here to filter..." value="{{ filter }}"></input>
+      </template>
       <ul>
-      <template id="core" repeat="{{apps | textFilter(filter) }}">
+      <template id="core" repeat="{{ apps | appsFilter(filter) }}">
           <li class="listItem">
             <a href="{{linkUrl}}">
               <img dragable="false" src="{{logoUrl}}"></img>
@@ -32,8 +33,8 @@ Element providing a list of applications assigned to a logged in user
           </li>
       </template>
       </ul>
+    </template>
   </template>
-
   <script>
 
     Polymer('okta-app-list', {
@@ -45,6 +46,16 @@ Element providing a list of applications assigned to a logged in user
        * @type string
        */
       org: '',
+
+      /**
+      * The `searchable` attribute allows the filter option to be revealed in the
+      * UI as a text field
+      * 
+      * 
+      * @attribute searchable
+      * @type boolean
+      */
+      searchable: false,
 
       /**
       * The `filter` attribute allows you to select a subset of the user's applications
@@ -59,12 +70,17 @@ Element providing a list of applications assigned to a logged in user
       },
 
       handleResponse: function(resp) {
-        this.$.core.model = {apps: resp.detail.response};
-      }
+        this.apps = resp.detail.response;
+      },
 
-      textFilter: function(value, filter){
-        console.log('value is \'' + '\' with filter value: ' + filter);
-        return (filter == '' || value.indexOf(filter) != 1);
+      appsFilter: function(value, filterValue){
+        var result = [];
+        for (x in value){
+          var app = value[x];
+          if (filterValue == '' || app.label.indexOf(filterValue) != -1)
+            result.push(app);
+        }
+        return result;
       }
 
     });
