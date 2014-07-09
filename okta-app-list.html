@@ -23,15 +23,13 @@ Element providing a list of applications assigned to a logged in user
         handleAs='json'
         on-core-response="{{handleResponse}}"></core-ajax>
       <ul>
-      <template id="core" repeat="{{apps}}">
-        <!-- <template if="{{ label | isFiltered }}"> -->
+      <template id="core" repeat="{{apps | textFilter(filter) }}">
           <li class="listItem">
             <a href="{{linkUrl}}">
               <img dragable="false" src="{{logoUrl}}"></img>
             </a>
             <span>{{label}}</span>
           </li>
-        <!-- </template> -->
       </template>
       </ul>
   </template>
@@ -64,9 +62,10 @@ Element providing a list of applications assigned to a logged in user
         this.$.core.model = {apps: resp.detail.response};
       }
 
-      // isFiltered: function(value){
-      //   return (this.filter == '' || value.indexOf(this.filter) != 1);
-      // }
+      textFilter: function(value, filter){
+        console.log('value is \'' + '\' with filter value: ' + filter);
+        return (filter == '' || value.indexOf(filter) != 1);
+      }
 
     });
 
